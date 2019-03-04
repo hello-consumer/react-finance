@@ -11,24 +11,19 @@ class Navbar extends Component {
         };
     }
 
-    componentDidMount() {
-        fetch('https://api.iextrading.com/1.0/ref-data/symbols').then((response) => {
-            response.json().then((data) => {
-                //Setting state on a component should kick-off the update lifecycle
-                this.setState(state => { return { allSymbols: data } });
-            })
-        })
-    }
-
-
-    searchOnSubmit = function (e) {
+    searchOnSubmit = async function (e) {
         e.preventDefault();
         var searchValue = document.getElementsByName('search')[0].value.toLowerCase();
 
-        this.setState(state => { return { searchValue: searchValue } });
+        if(this.state.allSymbols.length === 0){
+            var response = await fetch('https://api.iextrading.com/1.0/ref-data/symbols');
+            var data = await response.json();
+            this.setState({ allSymbols: data });
+        }
+        this.setState({ searchValue: searchValue });
         var matchedSymbols = this.state.allSymbols.filter(function (e) { return e.symbol.toLowerCase() === searchValue || e.name.toLowerCase().indexOf(searchValue) >= 0 });
 
-        this.setState(state => { return { matchedSymbols: matchedSymbols } });
+        this.setState({ matchedSymbols: matchedSymbols });
     }
 
 
@@ -66,7 +61,7 @@ class Navbar extends Component {
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" list="symbols" />
                         <datalist id="symbols">
-                            {this.state.matchedSymbols.map(function (e) { return <option value={e.symbol}>{e.name}</option> })}
+                            {this.state.matchedSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })}
                         </datalist>
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
