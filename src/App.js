@@ -25,7 +25,7 @@ class App extends Component {
               </div>
               </div>  
           )} />
-          <Route path="/details" render={() => <div>Details Path</div>} />
+          <Route path="/details/:symbol/" render={(routeData) => <SymbolDetails symbol={{symbol: routeData.match.params.symbol}} showFullDetail={true} />} />
           <Route path="*" render={() => <h1>Page Not Found</h1>} />
         </Switch>
         </div>
