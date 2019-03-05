@@ -26,7 +26,6 @@ class Navbar extends Component {
         this.setState({ matchedSymbols: matchedSymbols });
     }
 
-
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
