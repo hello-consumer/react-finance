@@ -18,7 +18,7 @@ class App extends Component {
         <Navbar matchedSymbols={this.state.matchedSymbols} setMatchedSymbols={this.setMatchedSymbols} />
         {this.state.matchedSymbols.length === 0 ? <Home /> : <div className="container-fluid">
       <div className="row">
-        {this.state.matchedSymbols.map(function(e) { return <div className="col-4"><SymbolDetails key={e.symbol} symbol={e} /></div> })}
+        {this.state.matchedSymbols.map(function(e) { return <div className="col-4"  key={e.symbol}><SymbolDetails symbol={e} /></div> })}
       </div>
       </div>  
         }
