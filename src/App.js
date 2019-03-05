@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import Home from './Home';
 import SymbolDetails from './SymbolDetails';
 
+import {Switch, Route} from 'react-router-dom'
+
 class App extends Component {
   constructor(){
     super();
@@ -16,12 +18,16 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar matchedSymbols={this.state.matchedSymbols} setMatchedSymbols={this.setMatchedSymbols} />
-        {this.state.matchedSymbols.length === 0 ? <Home /> : <div className="container-fluid">
-      <div className="row">
-        {this.state.matchedSymbols.map(function(e) { return <div className="col-4"  key={e.symbol}><SymbolDetails symbol={e} /></div> })}
-      </div>
-      </div>  
-        }
+        <Switch>
+          <Route path="/" exact render={() => (this.state.matchedSymbols.length === 0 ? <Home /> : <div className="container-fluid">
+              <div className="row">
+                {this.state.matchedSymbols.map(function(e) { return <div className="col-4"  key={e.symbol}><SymbolDetails symbol={e} /></div> })}
+              </div>
+              </div>  
+          )} />
+          <Route path="/details" render={() => <div>Details Path</div>} />
+          <Route path="*" render={() => <h1>Page Not Found</h1>} />
+        </Switch>
         </div>
     );
   }
