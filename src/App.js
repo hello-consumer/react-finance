@@ -16,11 +16,13 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar matchedSymbols={this.state.matchedSymbols} setMatchedSymbols={this.setMatchedSymbols} />
-        <Home />
-<div>
-  {this.state.matchedSymbols.map(function(e) { return <SymbolDetails key={e.symbol} symbol={e} /> })}
-</div>
+        {this.state.matchedSymbols.length === 0 ? <Home /> : <div className="container-fluid">
+      <div className="row">
+        {this.state.matchedSymbols.map(function(e) { return <div className="col-4"><SymbolDetails key={e.symbol} symbol={e} /></div> })}
       </div>
+      </div>  
+        }
+        </div>
     );
   }
 
