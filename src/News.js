@@ -12,7 +12,7 @@ class News extends Component {
                   <img src={e.image} />
                   <h3><a href={e.url}>{e.headline}</a></h3>
                   <p>{e.summary}</p>
-                  <p>{e.related}</p>
+                  <p>{e.related.split(',').join(', ')}</p>
                   <cite>{e.source} @ {e.datetime}</cite>
               </blockquote>
               </div>})}

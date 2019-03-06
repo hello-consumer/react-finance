@@ -29,12 +29,7 @@ class SymbolDetails extends Component {
                 })
         }
     }
-
-
-
   render() {
-    
-
     return (
       <div className="m-1 p-4 bg-dark text-light" >
       {!this.state.loaded ? <progress></progress> : this.props.showFullDetail ? <div>
@@ -43,7 +38,6 @@ class SymbolDetails extends Component {
                 <Company data={this.state.data} />
                 <Quote data={this.state.quote} />
             </div>
-                
             <div className="col">
                 <News data={this.state.news} />
             </div>
