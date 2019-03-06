@@ -4,6 +4,8 @@ import News from './News'
 import Chart from './Chart'
 import Quote from './Quote'
 
+import {NavLink} from 'react-router-dom';
+
 class SymbolDetails extends Component {
     constructor(){
         super();
@@ -50,7 +52,7 @@ class SymbolDetails extends Component {
         </div> : 
         <div>
             <Company data={this.state.data} />
-            <a className="btn btn-block btn-primary" href={"/details/" + this.props.symbol.symbol }>{this.props.symbol.name}</a>
+            <NavLink className="btn btn-block btn-primary" to={"/details/" + this.props.symbol.symbol }>{this.props.symbol.name}</NavLink>
         </div>
     }
     </div>);
