@@ -3,7 +3,7 @@ import {NavLink, withRouter} from 'react-router-dom';
 
 import { connect } from 'react-redux'
 
-import { exampleAction, updateMatchedSymbols, loadAllSymbols } from './actions';
+import { exampleAction, loadAllSymbols } from './actions';
 class Navbar extends Component {
     componentDidMount(){
         if(this.props.allSymbols.length === 0){
@@ -16,19 +16,10 @@ class Navbar extends Component {
     }
 
     searchOnSubmit = async function (e) {
-        
-
         e.preventDefault();
         var searchValue = document.getElementsByName('search')[0].value.toLowerCase();
         this.props.exampleAction(searchValue);
-
- 
-        //Programatically redirect to search page:
-        //This reload the whole page, which is bad:
-        //window.location.href = "/search";
         this.props.history.push('/search/' + searchValue);
-        
-
     }
 
     render() {
@@ -50,9 +41,9 @@ class Navbar extends Component {
                     </ul>
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" list="symbols" />
-                        {/* <datalist id="symbols">
+                        <datalist id="symbols">
                             {this.props.allSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })}
-                        </datalist> */}
+                        </datalist>
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
@@ -72,9 +63,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         exampleAction: (change) => {
            dispatch(exampleAction(change))
-        },
-        updateMatchedSymbols: (bill) =>{
-            dispatch(updateMatchedSymbols(bill))
         },
         loadAllSymbols: (symbols) =>{
             dispatch(loadAllSymbols(symbols))

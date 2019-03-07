@@ -7,7 +7,6 @@ import Search from './Search';
 
 import {Switch, Route } from 'react-router-dom'
 
-import { connect } from 'react-redux'
 class App extends Component {
   render() {
     return (
@@ -17,6 +16,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/search/:term" component={Search} />
           <Route path="/details/:symbol/" render={(routeData) => <SymbolDetails symbol={{symbol: routeData.match.params.symbol}} showFullDetail={true} />} />
+          <Route path="/about" render={() => <p>We're building this to demonstrate React and Redux!</p>} />
           <Route path="*" render={() => <h1>Page Not Found</h1>} />
         </Switch>
         </div>
@@ -25,11 +25,5 @@ class App extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    matchedSymbols: state.matchedSymbolReducer 
-  }
-}
 
-
-export default connect(mapStateToProps)(App);
+export default App;
