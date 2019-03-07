@@ -10,7 +10,6 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 const createdStore = createStore(store);
-
 ReactDOM.render(<BrowserRouter><Provider store={createdStore}><App /></Provider></BrowserRouter>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
