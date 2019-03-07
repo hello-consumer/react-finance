@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import SymbolDetails from './SymbolDetails';
 
+
+import { connect } from 'react-redux'
+
 class Search extends Component {
   render() {
     return (
@@ -15,4 +18,13 @@ class Search extends Component {
   }
 }
 
-export default Search;
+
+const mapStateToProps = (state) => {
+  return {
+   data: state.matchedSymbolReducer 
+  }
+}
+
+
+export default connect(mapStateToProps)(Search);
+

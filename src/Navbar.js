@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import { connect } from 'react-redux'
 
-import { exampleAction } from './actions';
+import { exampleAction, updateMatchedSymbols } from './actions';
 class Navbar extends Component {
 
     constructor() {
@@ -31,10 +31,8 @@ class Navbar extends Component {
             var matchedSymbols = this.state.allSymbols.filter(function (e) { return e.symbol.toLowerCase() === searchValue || e.name.toLowerCase().indexOf(searchValue) >= 0 }).slice(0, 10);
         } else{
             matchedSymbols = [];
-        }  
-        if(this.props.hasOwnProperty('setMatchedSymbols')){
-            this.props.setMatchedSymbols(matchedSymbols);
         }
+        this.props.updateMatchedSymbols(matchedSymbols);
     }
 
     render() {
@@ -57,7 +55,7 @@ class Navbar extends Component {
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" list="symbols" />
                         <datalist id="symbols">
-                            {this.props.matchedSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })}
+                            {/* {this.state.allSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })} */}
                         </datalist>
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -76,7 +74,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         exampleAction: (change) => {
-          dispatch(exampleAction(change))
+           dispatch(exampleAction(change))
+        },
+        updateMatchedSymbols: (bill) =>{
+            dispatch(updateMatchedSymbols(bill))
         }
     }
 }

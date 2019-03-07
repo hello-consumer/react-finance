@@ -1,8 +1,14 @@
+import { UPDATE_MATCHED_SYMBOLS } from '../actions'
+
 function matchedSymbolReducer(state = [], action){
-    
-    console.log('matched symbol reducer called');
-    console.log(action);
-    return state;
+    switch(action.type){
+        case UPDATE_MATCHED_SYMBOLS:{
+            return action.symbols;
+        }
+        default: {
+            return state;
+        }
+    }
 }
 
 export default matchedSymbolReducer;
