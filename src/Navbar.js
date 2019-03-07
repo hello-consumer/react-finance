@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, withRouter} from 'react-router-dom';
 
 import { connect } from 'react-redux'
 
@@ -28,6 +28,11 @@ class Navbar extends Component {
             matchedSymbols = [];
         }
         this.props.updateMatchedSymbols(matchedSymbols);
+        //Programatically redirect to search page:
+        //This reload the whole page, which is bad:
+        //window.location.href = "/search";
+        this.props.history.push('/search');
+
     }
 
     render() {
@@ -84,5 +89,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 //Instead of exporting a component, I export a "connected component"
 //Each connected component has functions that explain how the component
 //interacts with the store
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navbar));
 

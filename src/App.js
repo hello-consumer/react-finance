@@ -5,7 +5,7 @@ import Home from './Home';
 import SymbolDetails from './SymbolDetails';
 import Search from './Search';
 
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 class App extends Component {
@@ -14,8 +14,8 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route path="/" exact render={() => this.props.matchedSymbols.length > 0 ? <Redirect to='/search' /> : <Home /> } />
-          <Route path="/search" render={() => this.props.matchedSymbols.length === 0 ? <Redirect to='/' /> : <Search />} />
+          <Route path="/" exact component={Home} />
+          <Route path="/search" component={Search} />
           <Route path="/details/:symbol/" render={(routeData) => <SymbolDetails symbol={{symbol: routeData.match.params.symbol}} showFullDetail={true} />} />
           <Route path="*" render={() => <h1>Page Not Found</h1>} />
         </Switch>
