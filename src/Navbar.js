@@ -22,16 +22,12 @@ class Navbar extends Component {
         var searchValue = document.getElementsByName('search')[0].value.toLowerCase();
         this.props.exampleAction(searchValue);
 
-        if(searchValue !== ''){
-            var matchedSymbols = this.props.allSymbols.filter(function (e) { return e.symbol.toLowerCase() === searchValue || e.name.toLowerCase().indexOf(searchValue) >= 0 }).slice(0, 10);
-        } else{
-            matchedSymbols = [];
-        }
-        this.props.updateMatchedSymbols(matchedSymbols);
+ 
         //Programatically redirect to search page:
         //This reload the whole page, which is bad:
         //window.location.href = "/search";
-        this.props.history.push('/search');
+        this.props.history.push('/search/' + searchValue);
+        
 
     }
 
@@ -54,9 +50,9 @@ class Navbar extends Component {
                     </ul>
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" list="symbols" />
-                        <datalist id="symbols">
+                        {/* <datalist id="symbols">
                             {this.props.allSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })}
-                        </datalist>
+                        </datalist> */}
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>

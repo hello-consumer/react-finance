@@ -15,7 +15,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/search" component={Search} />
+          <Route path="/search/:term" component={Search} />
           <Route path="/details/:symbol/" render={(routeData) => <SymbolDetails symbol={{symbol: routeData.match.params.symbol}} showFullDetail={true} />} />
           <Route path="*" render={() => <h1>Page Not Found</h1>} />
         </Switch>
