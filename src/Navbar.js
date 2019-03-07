@@ -3,15 +3,16 @@ import {NavLink} from 'react-router-dom';
 
 import { connect } from 'react-redux'
 
-import { exampleAction, updateMatchedSymbols } from './actions';
+import { exampleAction, updateMatchedSymbols, loadAllSymbols } from './actions';
 class Navbar extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            allSymbols: [],
-            searchValue: '',
-        };
+    componentDidMount(){
+        if(this.props.allSymbols.length === 0){
+            fetch('https://api.iextrading.com/1.0/ref-data/symbols')
+            .then(response => response.json()
+                .then(data => 
+                    this.props.loadAllSymbols(data)
+            ))
+        }
     }
 
     searchOnSubmit = async function (e) {
@@ -20,15 +21,9 @@ class Navbar extends Component {
         e.preventDefault();
         var searchValue = document.getElementsByName('search')[0].value.toLowerCase();
         this.props.exampleAction(searchValue);
-        if(this.state.allSymbols.length === 0){
-            var response = await fetch('https://api.iextrading.com/1.0/ref-data/symbols');
-            var data = await response.json();
-            this.setState({ allSymbols: data });
-        }
-        this.setState({ searchValue: searchValue });
 
         if(searchValue !== ''){
-            var matchedSymbols = this.state.allSymbols.filter(function (e) { return e.symbol.toLowerCase() === searchValue || e.name.toLowerCase().indexOf(searchValue) >= 0 }).slice(0, 10);
+            var matchedSymbols = this.props.allSymbols.filter(function (e) { return e.symbol.toLowerCase() === searchValue || e.name.toLowerCase().indexOf(searchValue) >= 0 }).slice(0, 10);
         } else{
             matchedSymbols = [];
         }
@@ -55,7 +50,7 @@ class Navbar extends Component {
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" list="symbols" />
                         <datalist id="symbols">
-                            {/* {this.state.allSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })} */}
+                            {this.props.allSymbols.map(function (e) { return <option key={e.symbol} value={e.symbol}>{e.name}</option> })}
                         </datalist>
                         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -67,7 +62,8 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-     example: state.exampleReducer 
+     example: state.exampleReducer,
+     allSymbols: state.allSymbolReducer 
     }
 }
 
@@ -78,6 +74,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         updateMatchedSymbols: (bill) =>{
             dispatch(updateMatchedSymbols(bill))
+        },
+        loadAllSymbols: (symbols) =>{
+            dispatch(loadAllSymbols(symbols))
         }
     }
 }

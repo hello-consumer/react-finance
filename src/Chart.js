@@ -4,10 +4,10 @@ class Chart extends Component {
     
     componentDidMount(){
         console.log('mounting');
-        (function(){
-            console.log('inside of callback');
-            window.drawChart()
-        }());
+        // (function(){
+        //     console.log('inside of callback');
+        //     window.drawChart()
+        // }());
     }
     
   render() {
