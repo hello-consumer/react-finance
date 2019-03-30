@@ -30,6 +30,8 @@ class Navbar extends Component {
 
 
     searchOnSubmit = async function (e) {
+
+        
         e.preventDefault();
         var searchValue = document.getElementsByName('search')[0].value.toLowerCase();
         this.props.exampleAction(searchValue);
@@ -51,6 +53,9 @@ class Navbar extends Component {
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/about">About</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/watchlist">Watchlist</NavLink>
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0" onSubmit={e => this.searchOnSubmit(e)}>

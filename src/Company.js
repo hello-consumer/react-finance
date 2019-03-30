@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import AddToWatchlist from './AddToWatchlist';
 
 class Company extends Component {
   render() {
     return (
       <div>
-          <h1>{this.props.data.companyName}</h1>
+          <h1>{this.props.data.companyName}<AddToWatchlist symbol={this.props.data.symbol} /></h1>
           <p>{this.props.data.description}</p>
           <dl>
               <dt>Industry</dt>
