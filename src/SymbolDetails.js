@@ -14,21 +14,23 @@ class SymbolDetails extends Component {
         }
     }
 
+    async loadData(symbol, showFullDetail, urlBase = 'https://api.iextrading.com/1.0/stock/'){
+        let endpoint = !showFullDetail ? urlBase + symbol + '/company' : urlBase + symbol + '/batch?types=quote,news,chart,company&range=1m&last=10'
+        let response = await fetch(endpoint);
+        let data = await response.json();
+        return data;
+    }
+
     componentDidMount(){
         if(!this.state.loaded){
-            let endpoint = !this.props.showFullDetail ? 'https://api.iextrading.com/1.0/stock/' + this.props.symbol.symbol + '/company' : 'https://api.iextrading.com/1.0/stock/' + this.props.symbol.symbol + '/batch?types=quote,news,chart,company&range=1m&last=10'
-
-            fetch(endpoint)
-                .then((response) => {
-                    response.json().then((data) => {
-                        if(!this.props.showFullDetail){
-                            this.setState(state => {return {loaded: true, data: data }});
-                        } else{
-                            this.setState(state => {return {loaded: true, data: data.company, quote: data.quote, news: data.news, chart: data.chart }});
-                        }
-                        
-                    })
-                })
+            this.loadData(this.props.symbol.symbol, this.props.showFullDetail)
+            .then(data => {
+                if(!this.props.showFullDetail){
+                    this.setState(state => {return {loaded: true, data: data }});
+                } else {
+                    this.setState(state => {return {loaded: true, data: data.company, quote: data.quote, news: data.news, chart: data.chart }});
+                }
+            });
         }
     }
   render() {

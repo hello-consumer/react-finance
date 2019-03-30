@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 class Chart extends Component {
     
     componentDidMount(){
-      window.drawChart()
+      if(window.drawChart){
+        window.drawChart()
+      }
     }
     
   render() {
