@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 class Chart extends Component {
     
     componentDidMount(){
-    
-        (function(){
-            console.log('inside of callback');
-            window.drawChart()
-        }());
+      if(window.drawChart){
+        window.drawChart()
+      }
     }
     
   render() {

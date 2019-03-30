@@ -1,16 +1,46 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
-import {BrowserRouter} from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom';
 
 import { createStore } from 'redux'
-import { Provider } from 'react-redux'
 import store from './store'
 
-const createdStore = createStore(store);
+import { shallow } from 'enzyme';
+
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<BrowserRouter><Provider store={createdStore}><App /></Provider></BrowserRouter>, div);
-  ReactDOM.unmountComponentAtNode(div);
+  shallow(<MemoryRouter initialEntries={['/']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
+});
+
+
+it('renders the about page', () => {
+  shallow(<MemoryRouter initialEntries={['/about']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
+});
+
+it('renders the watchlist', () => {
+  shallow(<MemoryRouter initialEntries={['/watchlist']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
+});
+
+it('renders page not found', () => {
+  shallow(<MemoryRouter initialEntries={['/notapage']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
+});
+
+it('renders search page', () => {
+  shallow(<MemoryRouter initialEntries={['/search/cat']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
+});
+
+it('renders details page', () => {
+  shallow(<MemoryRouter initialEntries={['/details/aapl']} initialIndex={0}>
+    <App/>
+  </MemoryRouter>);
 });

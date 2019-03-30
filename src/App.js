@@ -6,6 +6,7 @@ import SymbolDetails from './SymbolDetails';
 import Search from './Search';
 
 import {Switch, Route } from 'react-router-dom'
+import Watchlist from './Watchlist';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route path="/search/:term" component={Search} />
           <Route path="/details/:symbol/" render={(routeData) => <SymbolDetails symbol={{symbol: routeData.match.params.symbol}} showFullDetail={true} />} />
           <Route path="/about" render={() => <p>We're building this to demonstrate React and Redux!</p>} />
+          <Route path="/watchlist" component={Watchlist} />
           <Route path="*" render={() => <h1>Page Not Found</h1>} />
         </Switch>
         </div>

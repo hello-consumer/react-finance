@@ -23,6 +23,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>React Finance</title>
   </head>
   <body>
@@ -46,18 +47,13 @@
       google.charts.load('current', {packages: ['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-        
         var chartElement = document.querySelector('#myChart');
         if(chartElement){
-
           var data = google.visualization.arrayToDataTable(window.chartData, true);
-
           var options = {
             legend:'none'
           };
-
           var chart = new google.visualization.CandlestickChart(chartElement);
-
           chart.draw(data, options);
         }
       }
