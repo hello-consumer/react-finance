@@ -1,8 +1,5 @@
 import { EXAMPLE_ACTION } from '../actions'
 
-
-
-
 function exampleReducer(state = [], action){
     switch(action.type){
         case EXAMPLE_ACTION:{
