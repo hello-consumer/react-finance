@@ -14,16 +14,17 @@ class SymbolDetails extends Component {
         }
     }
 
-    async loadData(symbol, showFullDetail, urlBase = 'https://api.iextrading.com/1.0/stock/'){
-        let endpoint = !showFullDetail ? urlBase + symbol + '/company' : urlBase + symbol + '/batch?types=quote,news,chart,company&range=1m&last=10'
-        let response = await fetch(endpoint);
+    async loadData(fetchUrl){
+        let response = await fetch(fetchUrl);
         let data = await response.json();
         return data;
     }
 
     componentDidMount(){
+        let urlBase = 'https://api.iextrading.com/1.0/stock/';
         if(!this.state.loaded){
-            this.loadData(this.props.symbol.symbol, this.props.showFullDetail)
+            let fetchUrl = (!this.props.showFullDetail ? urlBase + this.props.symbol.symbol + '/company' : urlBase + this.props.symbol.symbol + '/batch?types=quote,news,chart,company&range=1m&last=10');            
+            this.loadData(fetchUrl)
             .then(data => {
                 if(!this.props.showFullDetail){
                     this.setState(state => {return {loaded: true, data: data }});
